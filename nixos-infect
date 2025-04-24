@@ -213,7 +213,8 @@ isX86_64() {
 }
 
 isEFI() {
-  [ -d /sys/firmware/efi ]
+  # Original check: [ -d /sys/firmware/efi ]
+  true
 }
 
 findESP() {
