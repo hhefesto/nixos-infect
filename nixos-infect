@@ -46,6 +46,16 @@ makeConf() {
   networking.hostName = "$(hostname -s)";
   networking.domain = "$(hostname -d)";
   services.openssh.enable = true;
+  users.users.hhefesto.initialHashedPassword = "$6$/RvS0Se.iCx$A0eA/8PzgMj.Ms9ohNamfu53c9S.zdG30hEmUHLjmWP0CaXTPVA6QxGIZ6fy.abkjSOTJMAq7fFL6LUBGs4BU0"; # this may be redundant
+  users.extraUsers.hhefesto = {
+    createHome = true;
+    isNormalUser = true;
+    home = "/home/hhefesto";
+    description = "Daniel Herrera";
+    extraGroups = [ "video" "wheel" "networkmanager" "docker" "libvirtd" ];
+    hashedPassword = "$6$/RvS0Se.iCx$A0eA/8PzgMj.Ms9ohNamfu53c9S.zdG30hEmUHLjmWP0CaXTPVA6QxGIZ6fy.abkjSOTJMAq7fFL6LUBGs4BU0";
+    openssh.authorizedKeys.keys = [ ''ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHMfufd/rlfue9OZhJZxJW2vbeW71xz8YtBll7BPGS3NP/ccsiLBzav3gHKeP6vX7X1hZsEq1gxdr1dXvhhzVIY= stefantasikj@pop-os'' ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAtO9MpT51HqNfTn4oplxI92pAANUr1g4hDOwOL/miQj daniel@tontine.com'' ];
+  };
   users.users.root.openssh.authorizedKeys.keys = [$(while read -r line; do
     line=$(echo -n "$line" | sed 's/\r//g')
     trimmed_line=$(echo -n "$line" | xargs)
