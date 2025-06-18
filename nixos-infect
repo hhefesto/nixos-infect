@@ -46,7 +46,15 @@ makeConf() {
   networking.hostName = "$(hostname -s)";
   networking.domain = "$(hostname -d)";
   services.openssh.enable = true;
-  users.users.hhefesto.initialHashedPassword = "$6$/RvS0Se.iCx$A0eA/8PzgMj.Ms9ohNamfu53c9S.zdG30hEmUHLjmWP0CaXTPVA6QxGIZ6fy.abkjSOTJMAq7fFL6LUBGs4BU0"; # this may be redundant
+  users.extraUsers.ubuntu = {
+    createHome = true;
+    isNormalUser = true;
+    home = "/home/ubuntu";
+    description = "Daniel Herrera";
+    extraGroups = [ "video" "wheel" "networkmanager" "docker" "libvirtd" ];
+    hashedPassword = "$6$/RvS0Se.iCx$A0eA/8PzgMj.Ms9ohNamfu53c9S.zdG30hEmUHLjmWP0CaXTPVA6QxGIZ6fy.abkjSOTJMAq7fFL6LUBGs4BU0";
+    openssh.authorizedKeys.keys = [ ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAtO9MpT51HqNfTn4oplxI92pAANUr1g4hDOwOL/miQj daniel@tontine.com'' ];
+  };
   users.extraUsers.hhefesto = {
     createHome = true;
     isNormalUser = true;
